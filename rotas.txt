@@ -1,0 +1,9 @@
+conexao(a, c, 100).
+conexao(a, b, 100).
+conexao(b, c, 150).
+conexao(c, d, 200).
+conexao(b, e, 180).
+conexao(e, f, 120).
+conexao(f, g, 100).
+conexao(g, h, 150).
+conexao(b, d, 400).
