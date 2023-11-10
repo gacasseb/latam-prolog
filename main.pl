@@ -14,7 +14,7 @@ read_line(Stream) :-
 
 % Algoritmo para imprimir as conexões (voos) disponíveis
 imprimir_conexoes :-
-    findall((Origem, Destino, Preco), rotas(Origem, Destino, Preco), Conexoes),
+    findall((Origem, Destino, Preco), rota(Origem, Destino, Preco), Conexoes),
     imprimir_lista_conexoes(Conexoes).
 
 % Predicado auxiliar para imprimir a lista de conexões formatada
@@ -44,7 +44,7 @@ dijkstra([(DistAtual, CidadeAtual, CaminhoAtual) | OutrosNodos], Destino, Caminh
     (CidadeAtual = Destino ->
         Caminho = [Destino | CaminhoAtual], Distancia = DistAtual;
         findall((NovaDist, ProxCidade, [CidadeAtual | CaminhoAtual]),
-            (rotas(CidadeAtual, ProxCidade, Preco),
+            (rota(CidadeAtual, ProxCidade, Preco),
              \+ member(ProxCidade, [CidadeAtual | CaminhoAtual]),
              NovaDist is DistAtual + Preco),
             NovosNodos),
