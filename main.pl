@@ -1,32 +1,25 @@
-% Definição de fatos para representar as cidades e as conexões com preços
 
-% Predicado para ler as informações das rotas aéreas do arquivo
-ler_rotas(Arquivo) :-
-    open(Arquivo, read, Stream),
-    ler_linhas(Stream, Conexoes),
-    close(Stream),
-    assert(conexoes(Conexoes)).
+read_file(Filename) :-
+    open(Filename, read, Stream),
+    read_another(Stream),
+    close(Stream).
 
-% Predicado para ler todas as linhas do arquivo
-ler_linhas(Stream, Conexoes) :-
-    ler_linhas_aux(Stream, Conexoes).
-
-ler_linhas_aux(Stream, Conexoes) :-
-    read(Stream, Termo),
-    (Termo == end_of_file -> Conexoes = [] ;
-     Conexoes = [Termo | Resto],
-     ler_linhas_aux(Stream, Resto)).
+% Read each term from the file and assert it as a fact
+read_another(Stream) :-
+    repeat,
+    read_term(Stream, Term, []),
+    (Term == end_of_file -> ! ; assert(Term), fail).
 
 % Algoritmo para imprimir os voos
 imprimir_conexoes :-
-    findall((Origem, Destino, Preco), conexao(Origem, Destino, Preco), Conexoes),
+    findall((Origem, Destino, Preco), rotas(Origem, Destino, Preco), Conexoes),
     imprimir_lista_conexoes(Conexoes).
 
 imprimir_lista_conexoes([]).
 imprimir_lista_conexoes([(Origem, Destino, Preco) | Resto]) :-
     write('Voo de '), write(Origem),
     write(' para '), write(Destino),
-    write(' com preço '), write(Preco), nl,
+    write(' com preï¿½o '), write(Preco), nl,
     imprimir_lista_conexoes(Resto).
 
 
@@ -39,9 +32,9 @@ dijkstra([], _, [], _).
 
 dijkstra([(DistAtual, CidadeAtual, CaminhoAtual) | OutrosNodos], Destino, Caminho, Distancia) :-
     (CidadeAtual = Destino ->
-        Caminho = CaminhoAtual, Distancia = DistAtual;
+        Caminho = [Destino | CaminhoAtual], Distancia = DistAtual;
         findall((NovaDist, ProxCidade, [CidadeAtual | CaminhoAtual]),
-            (conexao(CidadeAtual, ProxCidade, Preco),
+            (rotas(CidadeAtual, ProxCidade, Preco),
              \+ member(ProxCidade, [CidadeAtual | CaminhoAtual]),
              NovaDist is DistAtual + Preco),
             NovosNodos),
@@ -49,4 +42,3 @@ dijkstra([(DistAtual, CidadeAtual, CaminhoAtual) | OutrosNodos], Destino, Caminh
         sort(TodosNodos, NodosOrdenados),
         dijkstra(NodosOrdenados, Destino, Caminho, Distancia)
     ).
-
