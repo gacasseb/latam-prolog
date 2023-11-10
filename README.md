@@ -1,20 +1,19 @@
-Carregar o programa principal
-## consult('main.pl')
-
-Ler o arquivo de texto no formato:
-
 Formato do Arquivo de Dados
-Existência de RotaAérea entre Cidades
+Existência de Rota aérea entre Cidades
 Simbologia:
 A cidade de partida
 B: cidade de destino
 Preço: custoda rota aérea, em reais, necessário para ir de A a B 
 rota(A,B,Preço).
 
+## consult('main.pl')
+Carregar o programa principal
+
 ## read_file('rotas.txt')
+Lê e carrega o arquivo de rotas
 
-Para imprimir a lista carregada do arquivo
 ## imprimir_conexoes.
+Para imprimir a lista carregada do arquivo
 
-Para encontrar o caminho mais curto
 ## caminho_mais_curto(a, b, A, B).
+Para encontrar o caminho mais curto
