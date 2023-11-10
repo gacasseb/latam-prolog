@@ -3,13 +3,13 @@ Carregar o programa principal
 
 Ler o arquivo de texto no formato:
 
-#Formato do Arquivo de Dados
-#Existência de RotaAérea entre Cidades
-#Simbologia:
-#A cidade de partida
-#B: cidade de destino
-#Preço: custoda rota aérea, em reais, necessário para ir de A a B 
-#rota(A,B,Preço).
+Formato do Arquivo de Dados
+Existência de RotaAérea entre Cidades
+Simbologia:
+A cidade de partida
+B: cidade de destino
+Preço: custoda rota aérea, em reais, necessário para ir de A a B 
+rota(A,B,Preço).
 
 ## read_file('rotas.txt')
 
